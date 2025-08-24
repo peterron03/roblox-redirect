@@ -14,9 +14,21 @@ function isValidJobId(id) {
 }
 
 if (isValidPlaceId(placeId) && isValidJobId(jobId)) {
-  // Build Roblox deep link and redirect
+  // Build Roblox deep link
   const robloxUrl = `roblox://experiences/start?placeId=${placeId}&gameInstanceId=${jobId}`;
+
+  // Redirect to Roblox client
   window.location.href = robloxUrl;
+
+  // Try to close the page after a short delay
+  setTimeout(() => {
+    window.close();
+    document.body.innerHTML = `
+      <p style="font-size:18px; color:green;">
+        Roblox should have opened. You can safely close this tab now.
+      </p>
+    `;
+  }, 1000);
 } else {
   // Show error message if invalid
   document.body.innerHTML = `
